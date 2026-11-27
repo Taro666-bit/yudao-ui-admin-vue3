@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { store } from '@/store'
 import { cloneDeep } from 'lodash-es'
 import remainingRouter from '@/router/modules/remaining'
+import jscRouter from '@/router/modules/jsc'
 import { flatMultiLevelRoutes, generateRoute } from '@/utils/routerHelper'
 import { CACHE_KEY, useCache } from '@/hooks/web/useCache'
 
@@ -59,8 +60,8 @@ export const usePermissionStore = defineStore('permission', {
             }
           }
         ])
-        // 渲染菜单的所有路由
-        this.routers = cloneDeep(remainingRouter).concat(routerMap)
+        // 渲染菜单的所有路由（jscRouter 为跨境中台原型期静态菜单，不动数据库菜单表）
+        this.routers = cloneDeep(remainingRouter).concat(cloneDeep(jscRouter), routerMap)
         resolve()
       })
     },
